@@ -30,5 +30,13 @@
             "Link": "https://www.linqpad.net/",
             "Free": true
         }
+    ],
+    "Code Review": [
+        {
+            "Title": "Gerrit",
+            "Description": "Web based code review and repository management for the Git",
+            "Link": "https://www.gerritcodereview.com/",
+            "Free": true
+        }
     ]
 }
