@@ -8,6 +8,9 @@ branches:
     - gh-pages
     - /.*/
 
+install:
+  - python -m pip install -r requirements.txt
+
 script:
   - python generate.py
 
