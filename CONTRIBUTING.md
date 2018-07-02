@@ -11,5 +11,4 @@
 }
 ```
 
-2. Run `generate.py` and commit changes to `tools.json` and `README.md`
-3. Create a Pull Request for your changes.
+2. Create a Pull Request for your changes.
