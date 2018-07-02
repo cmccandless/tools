@@ -26,7 +26,12 @@ with open('README.md', 'w') as f:
 
     writer.writeline('## Table of Contents')
     for category, _ in data:
-        writer.writeline('- ' + category)
+        writer.writeline(
+            '- {}'.format(mdg.link(
+                '#' + category.lower().replace(' ', '-'),
+                category
+            ))
+        )
 
     for category, tools in data:
         writer.writeline('\n## ' + category)

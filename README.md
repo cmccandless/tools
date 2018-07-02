@@ -1,7 +1,7 @@
 # Tools
 
 ## Table of Contents
-- Web Development
+- [Web Development](#web-development)
 
 ## Web Development
 | Title | Description | Free | Link |
