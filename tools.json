@@ -34,7 +34,7 @@
     "Code Review": [
         {
             "Title": "Gerrit",
-            "Description": "Web based code review and repository management for the Git",
+            "Description": "Web based code review and repository management for Git",
             "Link": "https://www.gerritcodereview.com/",
             "Free": true
         }
