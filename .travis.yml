@@ -1,4 +1,7 @@
 sudo: false
+language: python
+python: 
+  - "3.6"
 
 branches:
   only:
@@ -6,7 +9,7 @@ branches:
     - /.*/
 
 script:
-  - echo 'Deploying to GH pages...'
+  - python generate.py
 
 deploy:
   provider: pages
