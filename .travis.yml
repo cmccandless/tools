@@ -1,7 +1,7 @@
-sudo: false
-
-script:
-  - echo 'Deploying to GH pages...'
+branches:
+  only:
+    - gh-pages
+    - /.*/
 
 deploy:
   provider: pages
