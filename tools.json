@@ -6,5 +6,29 @@
             "Link": "https://ngrok.com/",
             "Free": true
         }
+    ],
+    "IDE": [
+        {
+            "Title": "Visual Studio Code",
+            "Description": "Free. Open source. Runs everywhere.",
+            "Link": "https://code.visualstudio.com/",
+            "Free": true
+        }
+    ],
+    "Cloud Hosting": [
+        {
+            "Title": "Heroku",
+            "Description": "Cloud hosting with simple GitHub integration",
+            "Link": "https://www.heroku.com/home",
+            "Free": true
+        }
+    ],
+    ".NET": [
+        {
+            "Title": "LINQPad",
+            "Description": "The Ultimate Scratchpad for C#, F# and VB",
+            "Link": "https://www.linqpad.net/",
+            "Free": true
+        }
     ]
 }
