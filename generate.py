@@ -22,19 +22,21 @@ with open('tools.json') as f:
 
 with open('README.md', 'w') as f:
     writer = mdg.Writer(f)
-    writer.writeline('# Tools\n')
+    writer.writeline('# Tools')
+    writer.writeline()
 
     writer.writeline('## Table of Contents')
     for category, _ in data:
-        writer.writeline(
-            '- {}'.format(mdg.link(
-                '#' + category.lower().replace(' ', '-'),
-                category
-            ))
-        )
+        url = category.lower()
+        url = url.replace(' ', '-')
+        url = url.replace('.', '')
+        url = '#' + url
+        writer.writeline('- ' + mdg.link(url, category))
 
     for category, tools in data:
-        writer.writeline('\n## ' + category)
+        writer.writeline()
+        writer.writeline('## ' + category)
+        writer.writeline()
         table = mdg.Table()
         table.add_column('Title')
         table.add_column('Description')
