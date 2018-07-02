@@ -1,3 +1,8 @@
+sudo: false
+
+script:
+  - echo 'Deploying to GH pages...'
+
 deploy:
   provider: pages
   skip-cleanup: true
