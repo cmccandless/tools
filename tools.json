@@ -38,5 +38,19 @@
             "Link": "https://www.gerritcodereview.com/",
             "Free": true
         }
+    ],
+    "Network Analysis": [
+        {
+            "Title": "Wireshark",
+            "Description": "Packet capture and protocol analysis",
+            "Link": "https://www.wireshark.org/",
+            "Free": true
+        },
+        {
+            "Title": "Nmap",
+            "Description": "Free and open source utility for network discovery and security auditing.",
+            "Link": "https://nmap.org/",
+            "Free": true
+        }
     ]
 }
