@@ -1,6 +1,38 @@
 #!/usr/bin/env python
 import markdown_generator as mdg
 import json
+from jsonschema import validate
+
+
+schema = {
+    "type": "object",
+    "patternProperties": {
+        "^.+$": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "Title": {"type": "string"},
+                    "Description": {"type": "string"},
+                    "Link": {
+                        "type": "string",
+                        "pattern": (
+                            "^http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]"
+                            "|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+$"
+                        )
+                    },
+                    "Free": {"type": "boolean"}
+                },
+                "required": [
+                    "Title",
+                    "Description",
+                    "Link",
+                    "Free"
+                ]
+            }
+        }
+    }
+}
 
 
 def get_tool_table_entry(tool):
@@ -18,7 +50,10 @@ def get_tool_table_entry(tool):
 
 
 with open('tools.json') as f:
-    data = sorted(json.load(f).items())
+    data = json.load(f)
+
+validate(data, schema)
+data = sorted(data.items())
 
 with open('index.html', 'w') as f:
     writer = mdg.Writer(f)
