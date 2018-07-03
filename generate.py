@@ -55,7 +55,7 @@ with open('tools.json') as f:
 validate(data, schema)
 data = sorted(data.items())
 
-with open('index.html', 'w') as f:
+with open('index.md', 'w') as f:
     writer = mdg.Writer(f)
     writer.writeline('# Tools')
     writer.writeline()
