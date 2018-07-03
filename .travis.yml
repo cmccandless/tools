@@ -4,18 +4,17 @@ python:
   - "3.6"
 
 install:
-  - python -m pip install -r requirements.txt
+  - make init
 
 before_script:
-  - python -m flake8 generate.py
+  - make lint
 
 script:
-  - python generate.py
+  - make generate
 
 deploy:
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
-  keep-history: true
   on:
     branch: master
