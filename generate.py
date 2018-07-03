@@ -20,7 +20,7 @@ def get_tool_table_entry(tool):
 with open('tools.json') as f:
     data = sorted(json.load(f).items())
 
-with open('README.md', 'w') as f:
+with open('index.html', 'w') as f:
     writer = mdg.Writer(f)
     writer.writeline('# Tools')
     writer.writeline()
