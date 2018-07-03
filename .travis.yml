@@ -6,6 +6,9 @@ python:
 install:
   - python -m pip install -r requirements.txt
 
+before_script:
+  - python -m flake8 generate.py
+
 script:
   - python generate.py
 
