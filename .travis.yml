@@ -3,11 +3,6 @@ language: python
 python: 
   - "3.6"
 
-branches:
-  only:
-    - gh-pages
-    - /.*/
-
 install:
   - python -m pip install -r requirements.txt
 
