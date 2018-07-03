@@ -42,6 +42,6 @@ with open('README.md', 'w') as f:
         table.add_column('Description')
         table.add_column('Free', mdg.Alignment.CENTER)
         table.add_column('Link')
-        for tool in tools:
+        for tool in sorted(tools, key=lambda t: t['Title']):
             table.append(*get_tool_table_entry(tool))
         writer.write(table)
