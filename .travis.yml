@@ -8,6 +8,7 @@ install:
 
 before_script:
   - make lint
+  - make test
 
 script:
   - make generate

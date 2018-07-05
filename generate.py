@@ -2,37 +2,18 @@
 import markdown_generator as mdg
 import json
 from jsonschema import validate
+import unittest
 
 
-schema = {
-    "type": "object",
-    "patternProperties": {
-        "^.+$": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "Title": {"type": "string"},
-                    "Description": {"type": "string"},
-                    "Link": {
-                        "type": "string",
-                        "pattern": (
-                            "^http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]"
-                            "|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+$"
-                        )
-                    },
-                    "Free": {"type": "boolean"}
-                },
-                "required": [
-                    "Title",
-                    "Description",
-                    "Link",
-                    "Free"
-                ]
-            }
-        }
-    }
-}
+with open('tools.json') as f:
+    data = json.load(f)
+
+
+class ToolsTest(unittest.TestCase):
+    def test_validate_against_schema(self):
+        with open('tools.schema') as f:
+            schema = json.load(f)
+        validate(data, schema)
 
 
 def get_tool_table_entry(tool):
@@ -49,34 +30,31 @@ def get_tool_table_entry(tool):
     ]
 
 
-with open('tools.json') as f:
-    data = json.load(f)
+if __name__ == '__main__':
+    data = sorted(data.items())
 
-validate(data, schema)
-data = sorted(data.items())
-
-with open('index.md', 'w') as f:
-    writer = mdg.Writer(f)
-    writer.writeline('# Tools')
-    writer.writeline()
-
-    writer.writeline('## Table of Contents')
-    for category, _ in data:
-        url = category.lower()
-        url = url.replace(' ', '-')
-        url = url.replace('.', '')
-        url = '#' + url
-        writer.writeline('- ' + mdg.link(url, category))
-
-    for category, tools in data:
+    with open('index.md', 'w') as f:
+        writer = mdg.Writer(f)
+        writer.writeline('# Tools')
         writer.writeline()
-        writer.writeline('## ' + category)
-        writer.writeline()
-        table = mdg.Table()
-        table.add_column('Title')
-        table.add_column('Description')
-        table.add_column('Free', mdg.Alignment.CENTER)
-        table.add_column('Link')
-        for tool in sorted(tools, key=lambda t: t['Title']):
-            table.append(*get_tool_table_entry(tool))
-        writer.write(table)
+
+        writer.writeline('## Table of Contents')
+        for category, _ in data:
+            url = category.lower()
+            url = url.replace(' ', '-')
+            url = url.replace('.', '')
+            url = '#' + url
+            writer.writeline('- ' + mdg.link(url, category))
+
+        for category, tools in data:
+            writer.writeline()
+            writer.writeline('## ' + category)
+            writer.writeline()
+            table = mdg.Table()
+            table.add_column('Title')
+            table.add_column('Description')
+            table.add_column('Free', mdg.Alignment.CENTER)
+            table.add_column('Link')
+            for tool in sorted(tools, key=lambda t: t['Title']):
+                table.append(*get_tool_table_entry(tool))
+            writer.write(table)
