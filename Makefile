@@ -1,4 +1,4 @@
-all: init lint generate
+all: init lint test generate
 
 init:
 	python -m pip install -r requirements.txt
@@ -6,6 +6,9 @@ init:
 lint:
 	python -m pip check
 	python -m flake8 *.py
+
+test:
+	python -m pytest -v generate.py
 
 generate:
 	python generate.py
