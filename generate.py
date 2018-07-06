@@ -5,6 +5,7 @@ import json
 from jsonschema import validate
 import unittest
 import httplib2
+from http import HTTPStatus
 
 
 with open('tools.json') as f:
@@ -20,8 +21,15 @@ class ToolsTest(unittest.TestCase):
     def test_validate_links(self):
         h = httplib2.Http()
         for tool in (t for ts in data.values() for t in ts):
-            resp = h.request(tool['Link'], 'HEAD')
-            self.assertLess(int(resp[0]['status']), 400)
+            url = tool['Link']
+            resp = h.request(url, 'HEAD')
+            status = HTTPStatus(int(resp[0]['status']))
+            status_msg = f'{status} {status.name}: {url}'
+            self.assertLess(
+                status,
+                300,
+                status_msg
+            )
 
 
 def get_tool_table_entry(tool):
