@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 import markdown_generator as mdg
 import json
+
 from jsonschema import validate
 import unittest
+import httplib2
 
 
 with open('tools.json') as f:
@@ -14,6 +16,12 @@ class ToolsTest(unittest.TestCase):
         with open('tools.schema') as f:
             schema = json.load(f)
         validate(data, schema)
+
+    def test_validate_links(self):
+        h = httplib2.Http()
+        for tool in (t for ts in data.values() for t in ts):
+            resp = h.request(tool['Link'], 'HEAD')
+            self.assertLess(int(resp[0]['status']), 400)
 
 
 def get_tool_table_entry(tool):
