@@ -52,5 +52,13 @@
             "Link": "https://nmap.org/",
             "Free": true
         }
+    ],
+    "Monitoring": [
+        {
+            "Title": "Visual Ping",
+            "Description": "Sends notifications when a web page has changed",
+            "Link": "https://visualping.io/",
+            "Free": true
+        }
     ]
 }
