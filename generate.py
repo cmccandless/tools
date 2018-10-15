@@ -1,26 +1,36 @@
 #!/usr/bin/env python
 from jinja2 import Environment, PackageLoader, select_autoescape
 import json
+import strictyaml
+from strictyaml import Map, MapPattern, Str, Url, Bool, Regex
 
-from jsonschema import validate
 import unittest
 import httplib2
 from http import HTTPStatus
 
-
-with open('tools.json') as f:
-    data = json.load(f)
+schema = MapPattern(
+    Regex(u'[A-Za-z. ]+'),
+    MapPattern(
+        Regex(u'[A-Za-z\\-. ]+'),
+        Map(
+            {
+                'Description': Regex('.+'),
+                'Free': Bool(),
+                'Link': Url(),
+            },
+            Regex(u'.+')
+        )
+    )
+)
+with open('tools.yml') as f:
+    data = strictyaml.load(f.read(), schema).data
 
 
 class ToolsTest(unittest.TestCase):
-    def test_validate_against_schema(self):
-        with open('tools.schema') as f:
-            schema = json.load(f)
-        validate(data, schema)
-
     def test_validate_links(self):
         h = httplib2.Http()
-        for tool in (t for ts in data.values() for t in ts):
+        # for tool in (t for ts in data.values() for t in ts):
+        for tool in (t for cts in data.values() for t in cts.values()):
             url = tool['Link']
             resp = h.request(url, 'HEAD')
             status = HTTPStatus(int(resp[0]['status']))
