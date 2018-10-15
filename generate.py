@@ -1,76 +1,43 @@
 #!/usr/bin/env python
-import markdown_generator as mdg
-import json
-
-from jsonschema import validate
-import unittest
-import httplib2
-from http import HTTPStatus
+from jinja2 import Environment, PackageLoader, select_autoescape
+import strictyaml
+from strictyaml import Map, MapPattern, Url, Bool, Regex
 
 
-with open('tools.json') as f:
-    data = json.load(f)
-
-
-class ToolsTest(unittest.TestCase):
-    def test_validate_against_schema(self):
-        with open('tools.schema') as f:
-            schema = json.load(f)
-        validate(data, schema)
-
-    def test_validate_links(self):
-        h = httplib2.Http()
-        for tool in (t for ts in data.values() for t in ts):
-            url = tool['Link']
-            resp = h.request(url, 'HEAD')
-            status = HTTPStatus(int(resp[0]['status']))
-            status_msg = f'{status} {status.name}: {url}'
-            self.assertLess(
-                status,
-                300,
-                status_msg
+def load_data(filename):
+    schema = MapPattern(
+        Regex(u'[A-Za-z. ]+'),
+        MapPattern(
+            Regex(u'[A-Za-z\\-. ]+'),
+            Map(
+                {
+                    'Description': Regex('.+'),
+                    'Free': Bool(),
+                    'Link': Url(),
+                },
+                Regex(u'.+')
             )
+        )
+    )
+    with open(filename) as f:
+        return strictyaml.load(f.read(), schema).data
 
 
-def get_tool_table_entry(tool):
-    def format_data(k, v):
-        if k == 'Free':
-            return 'Yes' if v else 'No'
-        if k == 'Link':
-            return mdg.link(v, 'Go')
-        return v
+def linkify(text):
+    return text.lower().replace(' ', '-').replace('.', '')
 
-    return [
-        format_data(k, tool[k])
-        for k in ['Title', 'Description', 'Free', 'Link']
-    ]
+
+def render_j2(data, output_file='index.md'):
+    env = Environment(
+        loader=PackageLoader(__name__, '.'),
+        autoescape=select_autoescape([])
+    )
+    env.filters['linkify'] = linkify
+    templ = env.select_template(['index.j2'])
+    return templ.render(data=data.items())
 
 
 if __name__ == '__main__':
-    data = sorted(data.items())
-
+    data = load_data('tools.yml')
     with open('index.md', 'w') as f:
-        writer = mdg.Writer(f)
-        writer.writeline('# Tools')
-        writer.writeline()
-
-        writer.writeline('## Table of Contents')
-        for category, _ in data:
-            url = category.lower()
-            url = url.replace(' ', '-')
-            url = url.replace('.', '')
-            url = '#' + url
-            writer.writeline('- ' + mdg.link(url, category))
-
-        for category, tools in data:
-            writer.writeline()
-            writer.writeline('## ' + category)
-            writer.writeline()
-            table = mdg.Table()
-            table.add_column('Title')
-            table.add_column('Description')
-            table.add_column('Free', mdg.Alignment.CENTER)
-            table.add_column('Link')
-            for tool in sorted(tools, key=lambda t: t['Title']):
-                table.append(*get_tool_table_entry(tool))
-            writer.write(table)
+        f.write(render_j2(data))

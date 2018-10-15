@@ -8,7 +8,7 @@ lint:
 	python -m flake8 *.py
 
 test:
-	python -m pytest -v generate.py
+	python -m pytest -v
 
 generate:
 	python generate.py
