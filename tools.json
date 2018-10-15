@@ -60,5 +60,19 @@
             "Link": "https://visualping.io/",
             "Free": true
         }
+    ],
+    "Continuous Integration": [
+        {
+            "Title": "Travis-CI",
+            "Description": "Cloud-hosted continuous integration service for Linux and OSX (Windows support under development)",
+            "Link": "https://travis-ci.com/",
+            "Free": true
+        },
+        {
+            "Title": "AppVeyor",
+            "Description": "Cloud-hosted continuous integration service for Windows and Linux",
+            "Link": "https://www.appveyor.com/",
+            "Free": true
+        }
     ]
 }
