@@ -69,7 +69,7 @@
             "Free": true
         },
         {
-            "Title": "Appveyor",
+            "Title": "AppVeyor",
             "Description": "Cloud-hosted continuous integration service for Windows and Linux",
             "Link": "https://www.appveyor.com/",
             "Free": true
