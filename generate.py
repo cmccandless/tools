@@ -2,6 +2,7 @@
 from jinja2 import Environment, PackageLoader, select_autoescape
 import strictyaml
 from strictyaml import Map, MapPattern, Url, Bool, Regex
+from datetime import datetime
 
 
 def load_data(filename):
@@ -34,7 +35,10 @@ def render_j2(data, output_file='index.md'):
     )
     env.filters['linkify'] = linkify
     templ = env.select_template(['index.j2'])
-    return templ.render(data=data.items())
+    return templ.render(
+        data=data.items(),
+        timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    )
 
 
 if __name__ == '__main__':
