@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import markdown_generator as mdg
+from jinja2 import Environment, PackageLoader, select_autoescape
 import json
 
 from jsonschema import validate
@@ -32,45 +32,20 @@ class ToolsTest(unittest.TestCase):
             )
 
 
-def get_tool_table_entry(tool):
-    def format_data(k, v):
-        if k == 'Free':
-            return 'Yes' if v else 'No'
-        if k == 'Link':
-            return mdg.link(v, 'Go')
-        return v
+def linkify(text):
+    return text.lower().replace(' ', '-').replace('.', '')
 
-    return [
-        format_data(k, tool[k])
-        for k in ['Title', 'Description', 'Free', 'Link']
-    ]
+
+def render_j2(data, output_file='index.md'):
+    env = Environment(
+        loader=PackageLoader(__name__, '.'),
+        autoescape=select_autoescape([])
+    )
+    env.filters['linkify'] = linkify
+    templ = env.select_template(['index.j2'])
+    return templ.render(data=data.items())
 
 
 if __name__ == '__main__':
-    data = sorted(data.items())
-
     with open('index.md', 'w') as f:
-        writer = mdg.Writer(f)
-        writer.writeline('# Tools')
-        writer.writeline()
-
-        writer.writeline('## Table of Contents')
-        for category, _ in data:
-            url = category.lower()
-            url = url.replace(' ', '-')
-            url = url.replace('.', '')
-            url = '#' + url
-            writer.writeline('- ' + mdg.link(url, category))
-
-        for category, tools in data:
-            writer.writeline()
-            writer.writeline('## ' + category)
-            writer.writeline()
-            table = mdg.Table()
-            table.add_column('Title')
-            table.add_column('Description')
-            table.add_column('Free', mdg.Alignment.CENTER)
-            table.add_column('Link')
-            for tool in sorted(tools, key=lambda t: t['Title']):
-                table.append(*get_tool_table_entry(tool))
-            writer.write(table)
+        f.write(render_j2(data))
