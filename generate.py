@@ -3,42 +3,24 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 import strictyaml
 from strictyaml import Map, MapPattern, Url, Bool, Regex
 
-import unittest
-import httplib2
-from http import HTTPStatus
 
-schema = MapPattern(
-    Regex(u'[A-Za-z. ]+'),
-    MapPattern(
-        Regex(u'[A-Za-z\\-. ]+'),
-        Map(
-            {
-                'Description': Regex('.+'),
-                'Free': Bool(),
-                'Link': Url(),
-            },
-            Regex(u'.+')
+def load_data(filename):
+    schema = MapPattern(
+        Regex(u'[A-Za-z. ]+'),
+        MapPattern(
+            Regex(u'[A-Za-z\\-. ]+'),
+            Map(
+                {
+                    'Description': Regex('.+'),
+                    'Free': Bool(),
+                    'Link': Url(),
+                },
+                Regex(u'.+')
+            )
         )
     )
-)
-with open('tools.yml') as f:
-    data = strictyaml.load(f.read(), schema).data
-
-
-class ToolsTest(unittest.TestCase):
-    def test_validate_links(self):
-        h = httplib2.Http()
-        # for tool in (t for ts in data.values() for t in ts):
-        for tool in (t for cts in data.values() for t in cts.values()):
-            url = tool['Link']
-            resp = h.request(url, 'HEAD')
-            status = HTTPStatus(int(resp[0]['status']))
-            status_msg = f'{status} {status.name}: {url}'
-            self.assertLess(
-                status,
-                300,
-                status_msg
-            )
+    with open(filename) as f:
+        return strictyaml.load(f.read(), schema).data
 
 
 def linkify(text):
@@ -56,5 +38,6 @@ def render_j2(data, output_file='index.md'):
 
 
 if __name__ == '__main__':
+    data = load_data('tools.yml')
     with open('index.md', 'w') as f:
         f.write(render_j2(data))
