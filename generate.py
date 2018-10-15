@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 from jinja2 import Environment, PackageLoader, select_autoescape
-import json
 import strictyaml
-from strictyaml import Map, MapPattern, Str, Url, Bool, Regex
+from strictyaml import Map, MapPattern, Url, Bool, Regex
 
 import unittest
 import httplib2
