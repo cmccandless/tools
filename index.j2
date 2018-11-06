@@ -10,7 +10,7 @@
 | Title | Description | Free | Link |
 |:--- |:--- |:---:|:--- |
 {% for title, tool in tools.items() | sort -%}
-| {{ title }} | {{ tool['Description'] }} | {{ ':heavy_check_mark:' if tool['Free'] else ':x:' }} | [Go]({{ tool['Link'] }}) |
+| {{ title }} | {{ tool['Description'] }} | {{ '✔' if tool['Free'] else '✘' }} | [Go]({{ tool['Link'] }}) |
 {% endfor %}
 {% endfor %}
 
