@@ -42,6 +42,11 @@ Network Analysis:
     Description: Packet capture and protocol analysis
     Free: yes
     Link: https://www.wireshark.org/
+Practice:
+  Exercism:
+    Description: Code practice and mentorship for everyone
+    Free: yes
+    Link: https://exercism.io/
 Web Development:
   ngrok:
     Description: One command for an instant, secure URL to your localhost server through
