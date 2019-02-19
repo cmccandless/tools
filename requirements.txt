@@ -1,4 +1,4 @@
-flake8==3.7.5
+flake8==3.7.6
 httplib2==0.12.1
 jinja2==2.10
 pytest==4.2.1
