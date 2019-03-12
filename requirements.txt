@@ -1,5 +1,5 @@
 flake8==3.7.7
 httplib2==0.12.1
 jinja2==2.10
-pytest==4.3.0
+pytest==4.3.1
 strictyaml==1.0.0
