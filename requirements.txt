@@ -1,5 +1,5 @@
-flake8==3.7.9
-httplib2==0.17.0
+flake8==3.8.4
+httplib2>=0.18.0
 jinja2==2.11.1
 pytest>=4.3.1
 strictyaml==1.0.6
