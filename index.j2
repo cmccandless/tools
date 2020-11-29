@@ -1,0 +1,17 @@
+# Tools
+
+## Table of Contents
+{% for category, tools in data | sort -%}
+- [{{ category }}](#{{ category | linkify }})
+{% endfor %}
+{%- for category, tools in data | sort %}
+## {{ category }}
+
+| Title | Description | Free | Link |
+|:--- |:--- |:---:|:--- |
+{% for title, tool in tools.items() | sort -%}
+| {{ title }} | {{ tool['Description'] }} | {{ '✔' if tool['Free'] else '✘' }} | [Go]({{ tool['Link'] }}) |
+{% endfor %}
+{% endfor %}
+
+*Generated at {{ timestamp }} UTC*

@@ -1,0 +1,21 @@
+sudo: false
+language: python
+python: 
+  - "3.6"
+
+install:
+  - make init
+
+before_script:
+  - make lint
+  - make test
+
+script:
+  - make generate
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  on:
+    branch: master

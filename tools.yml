@@ -1,0 +1,55 @@
+.NET:
+  LINQPad:
+    Description: The Ultimate Scratchpad for C#, F# and VB
+    Free: yes
+    Link: https://www.linqpad.net/
+Cloud Hosting:
+  Heroku:
+    Description: Cloud hosting with simple GitHub integration
+    Free: yes
+    Link: https://www.heroku.com/home
+Code Review:
+  Gerrit:
+    Description: Web based code review and repository management for Git
+    Free: yes
+    Link: https://www.gerritcodereview.com/
+Continuous Integration:
+  AppVeyor:
+    Description: Cloud-hosted continuous integration service for Windows and Linux
+    Free: yes
+    Link: https://www.appveyor.com/
+  Travis-CI:
+    Description: Cloud-hosted continuous integration service for Linux and OSX (Windows
+      support under development)
+    Free: yes
+    Link: https://travis-ci.com/
+IDE:
+  Visual Studio Code:
+    Description: Free. Open source. Runs everywhere.
+    Free: yes
+    Link: https://code.visualstudio.com/
+Monitoring:
+  Visual Ping:
+    Description: Sends notifications when a web page has changed
+    Free: yes
+    Link: https://visualping.io/
+Network Analysis:
+  Nmap:
+    Description: Free and open source utility for network discovery and security auditing.
+    Free: yes
+    Link: https://nmap.org/
+  Wireshark:
+    Description: Packet capture and protocol analysis
+    Free: yes
+    Link: https://www.wireshark.org/
+Practice:
+  Exercism:
+    Description: Code practice and mentorship for everyone
+    Free: yes
+    Link: https://exercism.io/
+Web Development:
+  ngrok:
+    Description: One command for an instant, secure URL to your localhost server through
+      any NAT or firewall.
+    Free: yes
+    Link: https://ngrok.com/
