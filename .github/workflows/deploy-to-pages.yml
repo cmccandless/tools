@@ -28,7 +28,7 @@ jobs:
           git add index.md
           git commit -m 'Deploy to gh-pages'
           git checkout -b gh-pages
-          if git fetch origin/gh-pages; then
+          if git fetch origin gh-pages; then
             git merge origin/gh-pages
           fi
           git push origin gh-pages:gh-pages
