@@ -16,7 +16,9 @@ jobs:
         with:
           python-version: 3.8
 
-      - run: pip install -r requirements.txt
+      - run: |
+          pip install -r requirements.txt
+          pip install pytest
 
       - name: Install certificates for SSL verification
         run: pip install -U requests[security]
