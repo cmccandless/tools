@@ -1,0 +1,23 @@
+name: CI / Lint
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - run: pip check
+
+      - run: pip install flake8
+
+      - run: flake8 *.py
